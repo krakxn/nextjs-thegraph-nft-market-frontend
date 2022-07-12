@@ -1,3 +1,5 @@
+import Head from "next/head"
+import Image from "next/image"
 import styles from "../styles/Home.module.css"
 import { Form, useNotification, Button } from "web3uikit"
 import { useMoralis, useWeb3Contract } from "react-moralis"
@@ -56,13 +58,12 @@ export default function Home() {
 
         await runContractFunction({
             params: listOptions,
-            onSuccess: handleListSuccess,
+            onSuccess: () => handleListSuccess(),
             onError: (error) => console.log(error),
         })
     }
 
-    async function handleListSuccess(tx) {
-        await tx.wait(1)
+    async function handleListSuccess() {
         dispatch({
             type: "success",
             message: "NFT listing",
@@ -71,8 +72,7 @@ export default function Home() {
         })
     }
 
-    const handleWithdrawSuccess = async (tx) => {
-        await tx.wait(1)
+    const handleWithdrawSuccess = () => {
         dispatch({
             type: "success",
             message: "Withdrawing proceeds",
@@ -98,9 +98,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        if (isWeb3Enabled) {
-            setupUI()
-        }
+        setupUI()
     }, [proceeds, account, isWeb3Enabled, chainId])
 
     return (
@@ -143,7 +141,7 @@ export default function Home() {
                                 params: {},
                             },
                             onError: (error) => console.log(error),
-                            onSuccess: handleWithdrawSuccess,
+                            onSuccess: () => handleWithdrawSuccess,
                         })
                     }}
                     text="Withdraw"
