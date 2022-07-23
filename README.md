@@ -1,28 +1,14 @@
-
-- [Full-Stack Setup](#full-stack-setup)
-  - [1. Git clone the contracts repo](#1-git-clone-the-contracts-repo)
-  - [2. Start your node](#2-start-your-node)
-  - [3. Connect your codebase to your moralis server](#3-connect-your-codebase-to-your-moralis-server)
-  - [4. Globally install the `moralis-admin-cli`](#4-globally-install-the-moralis-admin-cli)
-  - [5. Setup your Moralis reverse proxy](#5-setup-your-moralis-reverse-proxy)
-    - [IMPORTANT](#important)
-  - [6. Setup your Cloud functions](#6-setup-your-cloud-functions)
-  - [7. Add your event listeners](#7-add-your-event-listeners)
-    - [You can do this programatically by running:](#you-can-do-this-programatically-by-running)
-    - [Or, if you want to do it manually](#or-if-you-want-to-do-it-manually)
-  - [8. Mint and List your NFT](#8-mint-and-list-your-nft)
-  - [9. Start your front end](#9-start-your-front-end)
-- [Minimal Quickstart](#minimal-quickstart)
+# NFT Marketplace (Database) - Next.js, TheGraph:
 
 # Full-Stack Setup
 
-## 1. Git clone the contracts repo
+## 1. Git clone the back-end repo for NFT Marketplace 
 
 In it's own terminal / command line, run: 
 
 ```
-git clone https://github.com/PatrickAlphaC/hardhat-nft-marketplace-fcc
-cd hardhat-nextjs-nft-marketplace-fcc
+git clone `url`
+cd `path`
 yarn
 ```
 
@@ -36,7 +22,7 @@ yarn hardhat node
 
 ## 3. Connect your codebase to your moralis server
 
-Setup your event [moralis](https://moralis.io/). You'll need a new moralis server to get started. 
+Setup your event [Moralis](https://moralis.io/). You'll need a new Moralis server to get started. 
 
 Sign up for a [free account here](https://moralis.io/).
 
@@ -75,7 +61,7 @@ yarn global add moralis-admin-cli
 - Download the latest reverse proxy code from [FRP](https://github.com/fatedier/frp/releases) and add the binary to `./frp/frpc`. 
 - Replace your content in `frpc.ini`, based on your devchain. You can find the information on the `DevChain Proxy Server` tab of your moralis server. 
 
-In some Windows Versions, FRP could be blocked by firewall, just use a older release, for example frp_0.34.3_windows_386
+In some Windows Versions, FRP could be blocked by firewall. In such a case, just use a older release, for example: frp_0.34.3_windows_386
 
 Mac / Windows Troubleshooting: https://docs.moralis.io/faq#frpc
 
@@ -87,8 +73,6 @@ yarn moralis:sync
 
 You'll know you've done it right when you can see a green `connected` button after hitting the refresh symbol next to `DISCONNECTED`. *You'll want to keep this connection running*.
 
-<img src="./img/connected.png" width="200" alt="Connected to Moralis Reverse Proxy">
-
 ### IMPORTANT
 
 Anytime you reset your hardhat node, you'll need to press the `RESET LOCAL CHAIN` button on your UI!
@@ -99,18 +83,15 @@ In a separate terminal (you'll have a few up throughout these steps)
 
 Run `yarn moralis:cloud` in one terminal, and run `yarm moralis:logs` in another. If you don't have `moralis-admin-cli` installed already, install it globally with `yarn global add moralis-admin-cli`.
 
-> Note: You can stop these after running them once if your server is at max CPU capactity. 
+> Note: You can stop these after running them once if your server is at max CPU capacity. 
 
 If you hit the little down arrow in your server, then hit `Cloud Functions` you should see text in there. 
 
-<img src="./img/down-arrow.png" width="500" alt="Cloud Functions Up">
-<img src="./img/functions.png" width="250" alt="Cloud Functions Up">
-
-Make sure you've run `yarn moralis:sync` from the previous step to connect your local Hardhat devchain with your Moralis instance. You'll need these 3 moralis commands running at the same time. 
+Make sure you've run `yarn moralis:sync` from the previous step to connect your local Hardhat devchain with your Moralis instance. You'll need these 3 Moralis commands running at the same time. 
 
 ## 7. Add your event listeners
 
-### You can do this programatically by running:
+### You can do this programmatically by running:
 
 ```
 node watchEvents.js
@@ -120,13 +101,13 @@ node watchEvents.js
 
 Finally, go to `View Details` -> `Sync` and hit `Add New Sync` -> `Sync and Watch Contract Events`
 
-Add all 3 events by adding it's information, like so: 
+Add all 3 events by adding its information, like so: 
 
 1. ItemListed:
    1. Description: ItemListed
    2. Sync_historical: True
    3. Topic: ItemListed(address,address,uint256,uint256)
-   4. Abi: 
+   4. ABI: 
 ```
 {
   "anonymous": false,
@@ -163,7 +144,7 @@ Add all 3 events by adding it's information, like so:
     5. Address: <YOUR_NFT_MARKETPLACE_DEPLOYED_ADDRESS_FROM_HARDHAT>
     6. TableName: ItemListed
 
-You can add the canceled and bought events later. 
+You can add the cancelled and bought events later. 
 
 ## 8. Mint and List your NFT
 
@@ -184,7 +165,7 @@ At this point, you'll have a few terminals running:
 - Your Cloud Functions syncing
 - Your Moralis Logging
 
-And you're about to have one more for your front end. 
+And you're about to have one more for your front-end. 
 
 ```
 yarn run dev
@@ -194,29 +175,29 @@ And you'll have your front end, indexing service running, and blockchain running
 
 # Minimal Quickstart
 
-1. Clone the backend repo
+1. Clone the back-end repo for the NFT Marketplcae
 
 ```
-git clone https://github.com/PatrickAlphaC/hardhat-nft-marketplace-fcc
-cd hardhat-nextjs-nft-marketplace-fcc
+git clone `url`
+cd `path`
 yarn
 yarn hardhat node
 ```
-Leave that terminal running^
+Leave the above terminal running
 
-2. Clone the frontend
+2. Clone the front-end repo for the NFT Marketplace
 
 ```
-git clone https://github.com/PatrickAlphaC/nextjs-nft-marketplace-moralis-fcc
-cd nextjs-nft-marketplace-moralis-fcc
+git clone `url`
+cd `path`
 yarn
 ```
 
-Setup your `.env` with moralis info and update your `package.json` with moralis subdomain.
+Setup your `.env` with Moralis info and update your `package.json` with Moralis subdomain.
 
-3. Sync your hardhat node with moralis
+3. Sync your hardhat node with Moralis
 
-Update your `frpc.ini` file with what you see in the moralis UI.
+Update your `frpc.ini` file with what you see in the Moralis UI.
 
 Leave this terminal running: 
 
@@ -224,7 +205,7 @@ Leave this terminal running:
 yarn moralis:sync
 ```
 
-4. Watch for events && Update cloud functions
+4. Watch for events and update cloud functions
 
 Run once:
 ```
@@ -244,3 +225,5 @@ yarn hardhat run scripts/mint-and-list-item.js --network localhost
 ```
 
 And you should see it updated in the database
+
+# Thank you
